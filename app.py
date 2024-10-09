@@ -8,6 +8,7 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
+app.config['APPLICATION_ROOT'] = '/wallet'
 
 def get_db_connection():
     """Crée et retourne une connexion à la base de données PostgreSQL."""
