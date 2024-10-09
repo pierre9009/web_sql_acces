@@ -10,7 +10,7 @@
         // Fonction pour récupérer les données via AJAX et mettre à jour le tableau
         function fetchWalletStats() {
             $.ajax({
-                url: '/api/wallet_stats',  // URL de l'API qui renvoie les données
+                url: '/wallet/api/wallet_stats',  // URL de l'API qui renvoie les données
                 method: 'GET',
                 success: function(data) {
                     // Vider le tableau avant de le remplir
