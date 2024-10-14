@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 5000
 
 # Lancer Gunicorn pour démarrer l'application Flask
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "sql_acces:app"]

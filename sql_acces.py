@@ -5,7 +5,7 @@ import psycopg2
 from config import Config
 from dotenv import load_dotenv
 import os
-load_dotenv()
+load_dotenv(dotenv_path='/app/.env')
 
 app = Flask(__name__)
 app.config['APPLICATION_ROOT'] = '/wallet'
@@ -16,7 +16,7 @@ def get_db_connection():
         host=Config.IP_WALLET_DB,
         port=Config.DB_PORT,
         user=Config.USER_WALLET_DB,
-        password=os.getenv('PASSWORD_WALLET_DB'),
+        password=os.getenv('POSTGRES_PASSWORD'),
         dbname=Config.DB_WALLET
     )
     return conn
