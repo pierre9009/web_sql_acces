@@ -12,17 +12,22 @@ app.config['APPLICATION_ROOT'] = '/wallet'
 
 def get_db_connection():
     """Crée et retourne une connexion à la base de données PostgreSQL."""
-    conn = psycopg2.connect(
-        host=Config.IP_WALLET_DB,
-        port=Config.DB_PORT,
-        user=Config.USER_WALLET_DB,
-        password=os.getenv('POSTGRES_PASSWORD'),
-        dbname=Config.DB_WALLET
-    )
-    return conn
+    try:
+        conn = psycopg2.connect(
+            host=Config.IP_WALLET_DB,
+            port=Config.DB_PORT,
+            user=Config.USER_WALLET_DB,
+            password=os.getenv('POSTGRES_PASSWORD'),
+            dbname=Config.DB_WALLET
+        )
+        print(f"Connexion réussie à la base de données {Config.DB_WALLET}")
+        return conn
+    except Exception as e:
+        print(f"Erreur lors de la connexion à la base de données : {e}")
+        raise
 
 
-@app.route('/')
+@app.route('/wallet/')
 def index():
     """Récupère les données de la table wallet_stats et les passe au template."""
     conn = get_db_connection()
@@ -37,7 +42,7 @@ def index():
 
     # Passer les résultats au template HTML
     return render_template('index.html', wallet_stats=wallet_stats)
-@app.route('/api/wallet_stats')
+@app.route('/wallet/api/wallet_stats')
 def api_wallet_stats():
     """Retourne les données de la table wallet_stats en JSON."""
     conn = get_db_connection()
@@ -67,4 +72,4 @@ def api_wallet_stats():
     return jsonify(data)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
